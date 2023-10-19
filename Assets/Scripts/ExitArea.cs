@@ -14,6 +14,10 @@ public class ExitArea : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private EntracePoint entracePoint;
 
+    [SerializeField] private float fadeOutTime = 1f;
+    [SerializeField] private float fadeInTime = 1f;
+    [SerializeField] private float fadeWaitTime = 0.5f;
+
     public Transform GetSpawnPoint()
     {
         return spawnPoint;
@@ -36,9 +40,12 @@ public class ExitArea : MonoBehaviour
     {
         if(sceneIndexToLoad < 0)
         {
-            Debug.Log("SceneIndex must be bigger or equal to 0");
+            Debug.LogError("SceneIndex must be bigger or equal to 0");
             yield break;
         }
+
+        //Fader fader = GameObject.FindObjectOfType<Fader>();
+        //yield return fader.FadeOut(fadeOutTime);
 
         DontDestroyOnLoad(gameObject);
 
@@ -46,6 +53,10 @@ public class ExitArea : MonoBehaviour
 
         var otherExitArea = GetOtherExitArea();
         UpdatePlayer(otherExitArea);
+
+        //yield return new WaitForSeconds(fadeWaitTime); // time to wait for camera(etc.) to stabalize
+
+        //yield return fader.FadeIn(fadeInTime);
 
         Destroy(gameObject);
     }
