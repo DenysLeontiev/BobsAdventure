@@ -6,7 +6,7 @@ public class PersistentObjectSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject persistentObjectPrefab;
 
-    public static bool hasSpawned = false;
+    public static bool hasSpawned = true;
 
     private void Awake()
     {
@@ -15,6 +15,8 @@ public class PersistentObjectSpawner : MonoBehaviour
             hasSpawned = true;
             SpawnPersistentObject();
         }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void SpawnPersistentObject()

@@ -45,6 +45,12 @@ TagManager:
   - name: Background
     uniqueID: 3780224307
     locked: 0
+  - name: NPC`s
+    uniqueID: 1451976735
+    locked: 0
   - name: Player
     uniqueID: 2076396627
+    locked: 0
+  - name: UI
+    uniqueID: 1790800343
     locked: 0
