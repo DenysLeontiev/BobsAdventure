@@ -17,7 +17,7 @@ public class Fader : MonoBehaviour
     /// <returns></returns>
     public IEnumerator FadeOut(float time)
     {
-        while (canvasGroup.alpha <= 1)
+        while (canvasGroup.alpha < 1)
         {
             canvasGroup.alpha += Time.deltaTime / time;
             Debug.Log(canvasGroup.alpha);
@@ -32,7 +32,7 @@ public class Fader : MonoBehaviour
     /// <returns></returns>
     public IEnumerator FadeIn(float time)
     {
-        while (canvasGroup.alpha >= 0)
+        while (canvasGroup.alpha > 0)
         {
             canvasGroup.alpha -= Time.deltaTime / time;
             yield return null;

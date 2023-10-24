@@ -6,20 +6,38 @@ using UnityEngine;
 public class NPC : MonoBehaviour
 {
     [SerializeField] private List<DialogueLines> dialogueLines;
+    [SerializeField] private float triggerDialogueDistance = 2f;
 
     private Transform player;
-    [SerializeField] private int currentDialogueIndex = -1;
+    private int currentDialogueIndex = 0;
 
     private DialogueActivationImage dialogueActivationImage;
+    private Animator interactionImageAnimator;
 
     private void Start()
     {
         player = FindObjectOfType<PlayerController>().transform;
+        interactionImageAnimator = GetComponentInChildren<Animator>();
 
         dialogueActivationImage = GetComponentInChildren<DialogueActivationImage>();
         dialogueActivationImage.OnDialogueImageClicked += DialogueActivationImage_OnDialogueImageClicked;
 
         ResetDialogueStates();
+    }
+
+    private void Update()
+    {
+        HandleDialogueActivation();
+    }
+
+    private void HandleDialogueActivation()
+    {
+
+        float distanceBetween = DistanceBetween(player);
+        bool hasUnfinishedDialogue = dialogueLines.Any(d => !d.isFinished);
+        bool shouldFadeOut = !hasUnfinishedDialogue || distanceBetween > triggerDialogueDistance;
+
+        interactionImageAnimator.SetBool("fadeOut", shouldFadeOut);
     }
 
     private void DialogueActivationImage_OnDialogueImageClicked(object sender, System.EventArgs e)
@@ -31,6 +49,11 @@ public class NPC : MonoBehaviour
             DialogueManager.Instance.StartDialogue(dialogueLines[currentDialogueIndex]);
             currentDialogueIndex++;
         }
+    }
+
+    private float DistanceBetween(Transform player)
+    {
+        return Vector2.Distance(player.position, transform.position);
     }
 
 

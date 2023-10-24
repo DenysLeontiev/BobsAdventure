@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,9 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
     private const string ANIM_STATE_NAME = "appear"; // for handling animations
+
+    public event EventHandler OnDialogueStarted;
+    public event EventHandler OnDialogueFinished;
 
     [SerializeField] private KeyCode dialogueActivationKey = KeyCode.E;
     [SerializeField] private int charactersPerSecond = 1;
@@ -40,6 +44,8 @@ public class DialogueManager : MonoBehaviour
     {
         Show();
         AnimDialogueAppear();
+
+        OnDialogueStarted?.Invoke(this, EventArgs.Empty);
 
         currentDialogueLines = dialogueLines;
 
@@ -75,7 +81,8 @@ public class DialogueManager : MonoBehaviour
             yield return null;
         }
 
-        dialogue.isFinished = true; 
+        dialogue.isFinished = true;
+        OnDialogueFinished?.Invoke(this, EventArgs.Empty);
         StartCoroutine(HideWithDelay());
     }
 

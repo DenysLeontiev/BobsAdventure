@@ -44,8 +44,8 @@ public class ExitArea : MonoBehaviour
             yield break;
         }
 
-        //Fader fader = GameObject.FindObjectOfType<Fader>();
-        //yield return fader.FadeOut(fadeOutTime);
+        Fader fader = GameObject.FindObjectOfType<Fader>();
+        yield return fader.FadeOut(fadeOutTime);
 
         DontDestroyOnLoad(gameObject);
 
@@ -54,9 +54,9 @@ public class ExitArea : MonoBehaviour
         var otherExitArea = GetOtherExitArea();
         UpdatePlayer(otherExitArea);
 
-        //yield return new WaitForSeconds(fadeWaitTime); // time to wait for camera(etc.) to stabalize
+        yield return new WaitForSeconds(fadeWaitTime); // time to wait for camera(etc.) to stabalize
 
-        //yield return fader.FadeIn(fadeInTime);
+        yield return fader.FadeIn(fadeInTime);
 
         Destroy(gameObject);
     }

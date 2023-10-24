@@ -15,12 +15,12 @@ MonoBehaviour:
   dialogueLines:
   - interlocutorName: NPC
     interlocutorLine: Hi Again
-    isLineFinished: 0
+    isLineFinished: 1
   - interlocutorName: Player
     interlocutorLine: Wassup, sis
-    isLineFinished: 0
+    isLineFinished: 1
   - interlocutorName: NPC
     interlocutorLine: 'What are you doing here? '
-    isLineFinished: 0
+    isLineFinished: 1
   isCurrentlyPlaying: 0
   isFinished: 0

@@ -7,14 +7,22 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; private set; }
 
+    private PowerUpCanvas powerUpCanvas;
+
     private Rigidbody2D playerRigidbody;
     private Animator playerAnimator;
+
+    [SerializeField] private Level level;
 
     [SerializeField] private float moveSpeed = 1f;
 
     // to restrict player moving out of the map
     private Vector3 bottomLeftLimit;
     private Vector3 topRightLimit;
+
+    private int startingLevel = 1;
+
+    private bool canMove = true; // disable movement when dialogue is on 
 
     private void Awake()
     {
@@ -28,26 +36,95 @@ public class PlayerController : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+
+        level = new Level(startingLevel);
+
+        level.OnLevelUp += Level_OnLevelUp;
+        level.OnExperienceAdded += Level_OnExperienceAdded;
     }
 
     private void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+
+        powerUpCanvas = GameObject.FindObjectOfType<PowerUpCanvas>();
+
+
+        DialogueManager.Instance.OnDialogueStarted += Instance_OnDialogueStarted;
+        DialogueManager.Instance.OnDialogueFinished += Instance_OnDialogueFinished;
+
+        powerUpCanvas.OnPowerUpCanvasActive += PowerUpCanvas_OnPowerUpCanvasActive;
+        powerUpCanvas.OnPowerUpCanvasInactive += PowerUpCanvas_OnPowerUpCanvasInActive;
     }
+
+    private void PowerUpCanvas_OnPowerUpCanvasActive(object sender, System.EventArgs e)
+    {
+        canMove = false;
+    }
+
+    private void PowerUpCanvas_OnPowerUpCanvasInActive(object sender, System.EventArgs e)
+    {
+        canMove = true;
+    }
+
+    private void Level_OnLevelUp(object sender, Level.OnLevelUpEventArgs e)
+    {
+        
+    }
+
+    private void Level_OnExperienceAdded(object sender, Level.OnExperienceAddedEventArgs e)
+    {
+        
+    }
+
+    private void Instance_OnDialogueStarted(object sender, System.EventArgs e)
+    {
+        canMove = false;
+    }
+    private void Instance_OnDialogueFinished(object sender, System.EventArgs e)
+    {
+        canMove = true;
+    }
+
 
     private void Update()
     {
-        float mouseX = Input.GetAxisRaw("Horizontal");
-        float mouseY = Input.GetAxisRaw("Vertical");
-        playerRigidbody.velocity = new Vector2(mouseX, mouseY) * moveSpeed;
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            level.AddExperience(1);
+        }
+
+        float mouseX, mouseY;
+
+        if(canMove)
+        {
+            HandleMovement(out mouseX, out mouseY);
+            HandleAnimations(mouseX, mouseY);
+        }
+        else
+        {
+            playerRigidbody.velocity = Vector3.zero;
+        }
 
         float clampedX = Mathf.Clamp(transform.position.x, bottomLeftLimit.x, topRightLimit.x);
         float clampedY = Mathf.Clamp(transform.position.y, bottomLeftLimit.y, topRightLimit.y);
 
         transform.position = new Vector3(clampedX, clampedY, transform.position.z);
 
-        HandleAnimations(mouseX, mouseY);
+        
+    }
+
+    public Level GetLevelManager()
+    {
+        return level;
+    }
+
+    private void HandleMovement(out float mouseX, out float mouseY)
+    {
+        mouseX = Input.GetAxisRaw("Horizontal");
+        mouseY = Input.GetAxisRaw("Vertical");
+        playerRigidbody.velocity = new Vector2(mouseX, mouseY) * moveSpeed;
     }
 
     // this method is called in camera, because in camera script we know exact tilemap bounds and we pass them here from there
