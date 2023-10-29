@@ -20,7 +20,6 @@ public class Fader : MonoBehaviour
         while (canvasGroup.alpha < 1)
         {
             canvasGroup.alpha += Time.deltaTime / time;
-            Debug.Log(canvasGroup.alpha);
             yield return null; // waits for one frame
         }
     }

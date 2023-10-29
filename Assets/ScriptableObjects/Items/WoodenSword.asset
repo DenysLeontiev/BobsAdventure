@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 304e392c36abe5e4cb7982d6836d2e49, type: 3}
+  m_Name: WoodenSword
+  m_EditorClassIdentifier: 
+  Id: 1
+  Name: WoodenSword
+  Description: Not so sharp
+  Amount: 1
+  Icon: {fileID: 21300074, guid: 0bc4ed27aef38a44bb72e80f9beb5326, type: 3}
+  Type: 3
+  ItemPrefab: {fileID: 4976971837629127609, guid: 6046e4e84d6ed8b4083db85099e4a707, type: 3}

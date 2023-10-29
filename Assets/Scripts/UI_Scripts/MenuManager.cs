@@ -15,6 +15,8 @@ public class MenuManager : MonoBehaviour
 
     public event EventHandler<OnMenuOpenEventArgs> OnMenuOpen;
 
+    [SerializeField] private InventoryManager inventoryManager;
+
     [SerializeField] private KeyCode triggerMenuButton = KeyCode.Escape;
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private Slider slider;
@@ -23,6 +25,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentHealthTextUI;
 
     private HealthSystem playerHealthSystem;
+
 
 
     private bool isActive = false;
@@ -37,8 +40,6 @@ public class MenuManager : MonoBehaviour
     {
         levelManager = PlayerController.Instance.GetLevelManager();
         playerHealthSystem = FindObjectOfType<HealthSystem>();
-
-        Debug.Log("playerHealthSystem: " + playerHealthSystem);
 
         levelManager.OnLevelUp += LevelManager_OnLevelUp;
         levelManager.OnExperienceAdded += LevelManager_OnExperienceAdded;
@@ -84,7 +85,10 @@ public class MenuManager : MonoBehaviour
         {
             isActive = !isActive;
             if(OnMenuOpen != null)
+            {
                 OnMenuOpen?.Invoke(this, new OnMenuOpenEventArgs { isMenuActive = isActive });
+            }
+            inventoryManager.ListItems();
             menuPanel.SetActive(!isActive);
         }
     }
@@ -96,7 +100,6 @@ public class MenuManager : MonoBehaviour
 
     private void SetHealthTextUI(int health)
     {
-        Debug.Log("Setting UI led to " + health);
         currentHealthTextUI.text = $"Health:{health.ToString()}/" + playerHealthSystem.GetMaxHealth();
     }
 }
