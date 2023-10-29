@@ -14,6 +14,8 @@ public class Level
     public class OnExperienceAddedEventArgs : EventArgs
     {
         public float experienceToNextLevelNormalized;
+        public float currentExp;
+        public float expForNextLevel;
     }
 
     public int experience;
@@ -104,7 +106,9 @@ public class Level
 
         if(OnExperienceAdded != null)
         {
-            OnExperienceAdded?.Invoke(this, new OnExperienceAddedEventArgs { experienceToNextLevelNormalized = (float) experience / GetXPForLevel(currentLevel + 1)});
+            OnExperienceAdded?.Invoke(this, new OnExperienceAddedEventArgs { experienceToNextLevelNormalized = (float)experience / GetXPForLevel(currentLevel + 1),
+            currentExp = experience,
+            expForNextLevel = GetXPForLevel(currentLevel + 1)});
         }
 
         if(oldLevel < GetLevelForXP(experience))
@@ -119,7 +123,12 @@ public class Level
 
                 if (OnExperienceAdded != null)
                 {
-                    OnExperienceAdded?.Invoke(this, new OnExperienceAddedEventArgs { experienceToNextLevelNormalized = (float) experience / GetXPForLevel(currentLevel + 1) });
+                    OnExperienceAdded?.Invoke(this, new OnExperienceAddedEventArgs
+                    {
+                        experienceToNextLevelNormalized = (float)experience / GetXPForLevel(currentLevel + 1),
+                        currentExp = experience,
+                        expForNextLevel = GetXPForLevel(currentLevel + 1)
+                    });
                 }
 
                 return  true;

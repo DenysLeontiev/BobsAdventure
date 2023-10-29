@@ -8,9 +8,11 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance { get; private set; }
 
     private PowerUpCanvas powerUpCanvas;
+    private MenuManager menuManager;
 
     private Rigidbody2D playerRigidbody;
     private Animator playerAnimator;
+    private HealthSystem healthSystem;
 
     [SerializeField] private Level level;
 
@@ -41,14 +43,17 @@ public class PlayerController : MonoBehaviour
 
         level.OnLevelUp += Level_OnLevelUp;
         level.OnExperienceAdded += Level_OnExperienceAdded;
+
+        healthSystem = GetComponent<HealthSystem>();
     }
 
     private void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+        menuManager = FindObjectOfType<MenuManager>();
 
-        powerUpCanvas = GameObject.FindObjectOfType<PowerUpCanvas>();
+        powerUpCanvas = GameObject.FindObjectOfType<PowerUpCanvas>();  
 
 
         DialogueManager.Instance.OnDialogueStarted += Instance_OnDialogueStarted;
@@ -56,6 +61,13 @@ public class PlayerController : MonoBehaviour
 
         powerUpCanvas.OnPowerUpCanvasActive += PowerUpCanvas_OnPowerUpCanvasActive;
         powerUpCanvas.OnPowerUpCanvasInactive += PowerUpCanvas_OnPowerUpCanvasInActive;
+
+        menuManager.OnMenuOpen += MenuManager_OnMenuOpen;
+    }
+
+    private void MenuManager_OnMenuOpen(object sender, MenuManager.OnMenuOpenEventArgs e)
+    {
+        canMove = e.isMenuActive;
     }
 
     private void PowerUpCanvas_OnPowerUpCanvasActive(object sender, System.EventArgs e)
@@ -92,7 +104,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            level.AddExperience(1);
+            level.AddExperience(50);
         }
 
         float mouseX, mouseY;
@@ -118,6 +130,11 @@ public class PlayerController : MonoBehaviour
     public Level GetLevelManager()
     {
         return level;
+    }
+
+    public HealthSystem GetHealthSystem()
+    {
+        return healthSystem;
     }
 
     private void HandleMovement(out float mouseX, out float mouseY)
