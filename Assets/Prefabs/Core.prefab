@@ -3040,6 +3040,7 @@ GameObject:
   - component: {fileID: 1827166970}
   - component: {fileID: 1827166972}
   - component: {fileID: 1827166971}
+  - component: {fileID: 1477045060}
   m_Layer: 0
   m_Name: Menu
   m_TagString: Untagged
@@ -3109,6 +3110,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1477045060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827166969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5568cd07a225f4582769d171934d4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sliderComponents:
+  - {fileID: 994938189}
+  - {fileID: 2013543778}
+  nextBtn: {fileID: 177949509}
+  previousBtn: {fileID: 47010202}
 --- !u!1 &1885528008
 GameObject:
   m_ObjectHideFlags: 0

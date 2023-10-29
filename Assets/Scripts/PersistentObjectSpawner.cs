@@ -10,6 +10,13 @@ public class PersistentObjectSpawner : MonoBehaviour
 
     private void Awake()
     {
+        var other = FindObjectOfType<PersistentObjectSpawner>();
+
+        if (other != this)
+        {
+            Destroy(gameObject);
+        }
+
         if(hasSpawned == false)
         {
             hasSpawned = true;
