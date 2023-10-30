@@ -94,12 +94,10 @@ public class InventoryManager : MonoBehaviour
                 break;
             case Item.ItemType.IronSword:
                 break;
-            default:
-                break;
         }
 
 
         RemoveItem(item);
-        ListItems(); // refresh the UI
+        ListItems(); // refreshes UI
     }
 }
