@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerRigidbody;
     private Animator playerAnimator;
     private HealthSystem healthSystem;
+    private ManaSystem manaSystem;
 
     [SerializeField] private Level level;
 
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
         level.OnExperienceAdded += Level_OnExperienceAdded;
 
         healthSystem = GetComponent<HealthSystem>();
+        manaSystem = GetComponent<ManaSystem>();
     }
 
     private void Start()
@@ -126,7 +128,6 @@ public class PlayerController : MonoBehaviour
 
         
     }
-
     public Level GetLevelManager()
     {
         return level;
@@ -135,6 +136,11 @@ public class PlayerController : MonoBehaviour
     public HealthSystem GetHealthSystem()
     {
         return healthSystem;
+    }
+
+    public ManaSystem GetManaSystem()
+    {
+        return manaSystem;
     }
 
     private void HandleMovement(out float mouseX, out float mouseY)

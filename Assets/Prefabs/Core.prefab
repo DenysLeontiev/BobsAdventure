@@ -3493,6 +3493,7 @@ MonoBehaviour:
   slider: {fileID: 466035535}
   levelTextUI: {fileID: 1919166575}
   currentHealthTextUI: {fileID: 102541629}
+  manaPointsTextUI: {fileID: 899865284}
 --- !u!1 &2013543778
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,10 +23,10 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI levelTextUI;
     [SerializeField] private TextMeshProUGUI currentHealthTextUI;
+    [SerializeField] private TextMeshProUGUI manaPointsTextUI;
 
     private HealthSystem playerHealthSystem;
-
-
+    private ManaSystem playerManaSystem;
 
     private bool isActive = false;
 
@@ -39,18 +39,26 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         levelManager = PlayerController.Instance.GetLevelManager();
+
         playerHealthSystem = FindObjectOfType<HealthSystem>();
+        playerManaSystem = FindObjectOfType<ManaSystem>();
 
         levelManager.OnLevelUp += LevelManager_OnLevelUp;
         levelManager.OnExperienceAdded += LevelManager_OnExperienceAdded;
 
-
         playerHealthSystem.OnHealthChanged += PlayerHealthSystem_OnHealthChanged;
+        playerManaSystem.OnManaAmountChaged += PlayerManaSystem_OnManaAmountChaged;
 
         menuPanel.SetActive(isActive);
 
         SetLevelTextUI(levelManager.currentLevel); // init level text field with initial data
         SetHealthTextUI(playerHealthSystem.GetCurrentHealth()); // init health text field with initial data
+        SetManaTextUI(playerManaSystem.GetCurrentMana());
+    }
+
+    private void PlayerManaSystem_OnManaAmountChaged(object sender, ManaSystem.OnManaAmountChagedEventArgs e)
+    {
+        SetManaTextUI(e.manaPoints);
     }
 
     private void PlayerHealthSystem_OnHealthChanged(object sender, EventArgs e)
@@ -95,11 +103,16 @@ public class MenuManager : MonoBehaviour
 
     private void SetLevelTextUI(int level)
     {
-        levelTextUI.text = $"Level:{level.ToString()}/100";
+        levelTextUI.text = $"Level:{level}/100";
     }
 
     private void SetHealthTextUI(int health)
     {
-        currentHealthTextUI.text = $"Health:{health.ToString()}/" + playerHealthSystem.GetMaxHealth();
+        currentHealthTextUI.text = $"Health:{health}/" + playerHealthSystem.GetMaxHealth();
+    }
+
+    private void SetManaTextUI(int mana)
+    {
+        manaPointsTextUI.text = $"Mana:{mana}/" + playerManaSystem.GetMaxManaAmount();
     }
 }

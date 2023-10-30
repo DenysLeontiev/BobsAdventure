@@ -50,12 +50,18 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// Used for Health PowerUp
-    /// </summary>
-    public void IncreaseMaxHealth(int amount)
+    public void AddHealth(int amount)
     {
-        maxHealth += amount;
+        if(isDead) // if player is dead, we can use health potion
+        {
+            return;
+        }
+
+        currentHealth += amount;
+
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        if(OnHealthChanged != null)
+            OnHealthChanged?.Invoke(this,EventArgs.Empty);
     }
 }

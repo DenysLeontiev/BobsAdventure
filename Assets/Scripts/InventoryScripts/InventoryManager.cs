@@ -69,15 +69,37 @@ public class InventoryManager : MonoBehaviour
 
     private void UseItem(Item item)
     {
-        Debug.Log("Item is used");
-        if(item != null)
-        {
-            RemoveItem(item);
-            ListItems(); //refresh
-        }
-        else
+        if(item == null)
         {
             Debug.LogError("Item is null");
+            return;
         }
+
+        var player = PlayerController.Instance;
+
+        switch (item.Type)
+        {
+            case Item.ItemType.HealthPotion:
+                var playerHealth = player.GetHealthSystem();
+                playerHealth.AddHealth(item.Amount);
+                break;
+            case Item.ItemType.ManaPotion:
+                Debug.Log("Mana is used");
+                var playerMana = player.GetManaSystem();
+                playerMana.AddMana(item.Amount);
+                break;
+            case Item.ItemType.ExperiencePotion:
+                break;
+            case Item.ItemType.WoodenSword:
+                break;
+            case Item.ItemType.IronSword:
+                break;
+            default:
+                break;
+        }
+
+
+        RemoveItem(item);
+        ListItems(); // refresh the UI
     }
 }

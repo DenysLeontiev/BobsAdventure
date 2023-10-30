@@ -65,7 +65,8 @@ public class ExitArea : MonoBehaviour
     {
         var player = PlayerController.Instance.GetComponent<Transform>();
         player.position = otherExitArea.GetSpawnPoint().position;
-        player.rotation = otherExitArea.GetSpawnPoint().rotation;
+        player.rotation = new Quaternion(otherExitArea.GetSpawnPoint().rotation.x, otherExitArea.GetSpawnPoint().rotation.y, 0,0);
+
     }
 
     private ExitArea GetOtherExitArea() 
