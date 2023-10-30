@@ -16,6 +16,8 @@ MonoBehaviour:
   Name: HealthPotion
   Description: Renews Health
   Amount: 10
+  IsStackable: 1
+  Quantity: 2
   Icon: {fileID: 21300000, guid: 0bc4ed27aef38a44bb72e80f9beb5326, type: 3}
   Type: 0
   ItemPrefab: {fileID: 1907536905742917543, guid: a42dc005fda8e0248906af09633af420, type: 3}

@@ -1157,6 +1157,10 @@ MonoBehaviour:
   Items: []
   ItemsContent: {fileID: 6853438126909669259}
   InventoryItem: {fileID: 8893720094780197217, guid: 21fb4f4e39576b246a34f20dbb8e457c, type: 3}
+  itemSOs:
+  - {fileID: 11400000, guid: dfd54b9fe0de82449921d063113356b6, type: 2}
+  - {fileID: 11400000, guid: 041170c069553c64b9cfc863f5180017, type: 2}
+  - {fileID: 11400000, guid: 23ceb044178d313429a73820de51a23b, type: 2}
 --- !u!1 &382881631
 GameObject:
   m_ObjectHideFlags: 0

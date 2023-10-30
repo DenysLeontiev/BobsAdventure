@@ -9,6 +9,8 @@ public class Item : ScriptableObject
     public string Name;
     public string Description;
     public int Amount;
+    public bool IsStackable;
+    public int Quantity;
     public Sprite Icon; 
     public ItemType Type;
     public GameObject ItemPrefab;
