@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577a306012b0c744ea959a9c7d89d1b5, type: 3}
+  m_Name: ManaPotionShop
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 041170c069553c64b9cfc863f5180017, type: 2}
+  Price: 10

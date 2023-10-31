@@ -38,6 +38,21 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         ListItems();
+
+        CoinSystem.Instance.OnCoinsAmountChanged += Instance_OnCoinsAmountChanged;
+    }
+
+    private void Instance_OnCoinsAmountChanged(object sender, CoinSystem.OnCoinsAmountChangedEventArgs e)
+    {
+        foreach (var item in Items)
+        {
+            if(item.Type == Item.ItemType.Coin)
+            {
+                item.Quantity = e.coinsAmount;
+            }
+        }
+
+        ListItems();
     }
 
     private void ResetItemSOQuantity()

@@ -10,7 +10,6 @@ public class ItemDeletionButton : MonoBehaviour,IPointerDownHandler
     private float dclick_threshold = 0.25f;
     private double timerdclick = 0;
 
-
     public void OnPointerDown(PointerEventData eventData)
     {
         if (Input.GetMouseButtonDown(1)) // double right click to remove item
@@ -19,8 +18,8 @@ public class ItemDeletionButton : MonoBehaviour,IPointerDownHandler
             {
                 if(itemToDelete != null)
                 {
-                    Debug.Log("itemToDelete: " + itemToDelete.ItemPrefab);
                     SpawnItemInWorld(itemToDelete);
+                    PlayerController.Instance.GetComponent<CoinSystem>().TakeCoins(1);
                 }
                 else
                 {
