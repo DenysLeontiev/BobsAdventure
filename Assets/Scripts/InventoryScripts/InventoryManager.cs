@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,6 +11,14 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
     public List<Item> Items = new List<Item>();
+
+    public class OnItemAddedEventArgs : EventArgs
+    {
+        public Item itemAdded;
+    }
+
+    public event EventHandler<OnItemAddedEventArgs> OnItemAdded;
+
 
     [SerializeField] private Transform ItemsContent;
     [SerializeField] private GameObject InventoryItem;
@@ -65,6 +74,9 @@ public class InventoryManager : MonoBehaviour
         {
             Items.Add(item);
         }
+
+        if (OnItemAdded != null)
+            OnItemAdded?.Invoke(this, new OnItemAddedEventArgs { itemAdded = item });
 
         ListItems();
     }
@@ -163,5 +175,20 @@ public class InventoryManager : MonoBehaviour
         }
 
         ListItems(); // refreshes UI
+    }
+
+    public int GetAmountOfCoins()
+    {
+        int coinsAmount = 0;
+
+        foreach (var item in Items)
+        {
+            if(item.Type == Item.ItemType.Coin)
+            {
+                coinsAmount += item.Quantity;
+            }
+        }
+
+        return coinsAmount;
     }
 }

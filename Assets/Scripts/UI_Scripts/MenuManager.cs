@@ -24,6 +24,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelTextUI;
     [SerializeField] private TextMeshProUGUI currentHealthTextUI;
     [SerializeField] private TextMeshProUGUI manaPointsTextUI;
+    [SerializeField] private TextMeshProUGUI goldenCoinsTextUI;
 
     private HealthSystem playerHealthSystem;
     private ManaSystem playerManaSystem;
@@ -40,6 +41,8 @@ public class MenuManager : MonoBehaviour
     {
         levelManager = PlayerController.Instance.GetLevelManager();
 
+        InventoryManager.Instance.OnItemAdded += Instance_OnItemAdded;
+
         playerHealthSystem = FindObjectOfType<HealthSystem>();
         playerManaSystem = FindObjectOfType<ManaSystem>();
 
@@ -54,6 +57,18 @@ public class MenuManager : MonoBehaviour
         SetLevelTextUI(levelManager.currentLevel); // init level text field with initial data
         SetHealthTextUI(playerHealthSystem.GetCurrentHealth()); // init health text field with initial data
         SetManaTextUI(playerManaSystem.GetCurrentMana());
+        SetGoldenCointTextUI(InventoryManager.Instance.GetAmountOfCoins());
+    }
+
+    private void Instance_OnItemAdded(object sender, InventoryManager.OnItemAddedEventArgs e)
+    {
+        if(e.itemAdded!= null)
+        {
+            if(e.itemAdded.Type == Item.ItemType.Coin)
+            {
+                SetGoldenCointTextUI(InventoryManager.Instance.GetAmountOfCoins());
+            }
+        }
     }
 
     private void PlayerManaSystem_OnManaAmountChaged(object sender, ManaSystem.OnManaAmountChagedEventArgs e)
@@ -114,5 +129,10 @@ public class MenuManager : MonoBehaviour
     private void SetManaTextUI(int mana)
     {
         manaPointsTextUI.text = $"Mana:{mana}/" + playerManaSystem.GetMaxManaAmount();
+    }
+
+    private void SetGoldenCointTextUI(int coins)
+    {
+        goldenCoinsTextUI.text = $"Golden Coins:{coins}";
     }
 }

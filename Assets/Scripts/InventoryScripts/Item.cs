@@ -21,7 +21,8 @@ public class Item : ScriptableObject
         ManaPotion,
         ExperiencePotion,
         WoodenSword,
-        IronSword
+        IronSword,
+        Coin
     }
 
 }

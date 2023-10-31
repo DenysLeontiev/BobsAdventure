@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 304e392c36abe5e4cb7982d6836d2e49, type: 3}
+  m_Name: Coin
+  m_EditorClassIdentifier: 
+  Id: 4
+  Name: Coin
+  Description: Mmm, expensive
+  Amount: 1
+  IsStackable: 1
+  Quantity: 1
+  Icon: {fileID: -318347360, guid: 0bc4ed27aef38a44bb72e80f9beb5326, type: 3}
+  Type: 5
+  ItemPrefab: {fileID: 9082367853486196905, guid: 91059a318ef7de541a14e6f973837521, type: 3}

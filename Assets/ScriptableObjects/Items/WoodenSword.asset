@@ -18,6 +18,6 @@ MonoBehaviour:
   Amount: 1
   IsStackable: 0
   Quantity: 1
-  Icon: {fileID: 21300074, guid: 0bc4ed27aef38a44bb72e80f9beb5326, type: 3}
+  Icon: {fileID: 494862414, guid: 0bc4ed27aef38a44bb72e80f9beb5326, type: 3}
   Type: 3
   ItemPrefab: {fileID: 4976971837629127609, guid: 6046e4e84d6ed8b4083db85099e4a707, type: 3}

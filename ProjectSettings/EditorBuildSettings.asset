@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FifthLevel.unity
     guid: e464d62691d9b9a4591234472dd70964
+  - enabled: 1
+    path: Assets/Scenes/ShopScene.unity
+    guid: 5360dedce463abe42851bf1ff35b7109
   m_configObjects: {}
