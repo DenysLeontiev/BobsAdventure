@@ -42,6 +42,7 @@ public class MenuManager : MonoBehaviour
         levelManager = PlayerController.Instance.GetLevelManager();
 
         InventoryManager.Instance.OnItemAdded += Instance_OnItemAdded;
+        QuestManager.Instance.OnQuestActivated += Instance_OnQuestActivated;
 
         playerHealthSystem = FindObjectOfType<HealthSystem>();
         playerManaSystem = FindObjectOfType<ManaSystem>();
@@ -58,6 +59,11 @@ public class MenuManager : MonoBehaviour
         SetHealthTextUI(playerHealthSystem.GetCurrentHealth()); // init health text field with initial data
         SetManaTextUI(playerManaSystem.GetCurrentMana());
         SetGoldenCointTextUI(InventoryManager.Instance.GetAmountOfCoins());
+    }
+
+    private void Instance_OnQuestActivated(object sender, QuestManager.OnQuestActivatedEventArgs e)
+    {
+        Debug.Log("New Quest added => " + e.quest);
     }
 
     private void Instance_OnItemAdded(object sender, InventoryManager.OnItemAddedEventArgs e)

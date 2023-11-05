@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
+    [SerializeField] private Quest questToAdd;
+
     [SerializeField] private List<DialogueLines> dialogueLines;
     [SerializeField] private float triggerDialogueDistance = 2f;
 
@@ -32,7 +34,6 @@ public class NPC : MonoBehaviour
 
     private void HandleDialogueActivation()
     {
-
         float distanceBetween = DistanceBetween(player);
         bool hasUnfinishedDialogue = dialogueLines.Any(d => !d.isFinished);
         bool shouldFadeOut = !hasUnfinishedDialogue || distanceBetween > triggerDialogueDistance;
@@ -42,6 +43,7 @@ public class NPC : MonoBehaviour
 
     private void DialogueActivationImage_OnDialogueImageClicked(object sender, System.EventArgs e)
     {
+        QuestManager.Instance.AddActiveQuest(questToAdd);
         var firstUnplayedDialogue = dialogueLines.FirstOrDefault(d => !d.isFinished);
 
         if(firstUnplayedDialogue != null && firstUnplayedDialogue.isCurrentlyPlaying == false)
