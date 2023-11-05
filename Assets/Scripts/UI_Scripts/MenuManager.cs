@@ -21,6 +21,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private Slider slider;
 
+    [SerializeField] private GameObject questsParent;
+    [SerializeField] private GameObject questPrefabUI;
+
     [SerializeField] private TextMeshProUGUI levelTextUI;
     [SerializeField] private TextMeshProUGUI currentHealthTextUI;
     [SerializeField] private TextMeshProUGUI manaPointsTextUI;
@@ -63,7 +66,23 @@ public class MenuManager : MonoBehaviour
 
     private void Instance_OnQuestActivated(object sender, QuestManager.OnQuestActivatedEventArgs e)
     {
-        Debug.Log("New Quest added => " + e.quest);
+        Quest quest = e.quest;
+
+        if(quest != null)
+        {
+            var questPanelUI = Instantiate(questPrefabUI, questsParent.transform);
+            TextMeshProUGUI questName = questPanelUI.transform.Find("QuestName").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI questExperience = questPanelUI.transform.Find("QuestExperience").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI questDescription = questPanelUI.transform.Find("QuestDescription").GetComponent<TextMeshProUGUI>();
+
+            questName.text = "Name: " + quest.QuestName;
+            questDescription.text = "Description: " + quest.QuestDescription;
+            questExperience.text = "Experience: " + quest.ExperienceReward.ToString();
+        }
+        else
+        {
+            Debug.LogError("Quest is null, cant display");
+        }
     }
 
     private void Instance_OnItemAdded(object sender, InventoryManager.OnItemAddedEventArgs e)

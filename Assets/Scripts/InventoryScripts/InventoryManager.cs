@@ -32,7 +32,7 @@ public class InventoryManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        ResetItemSOQuantity();
+        ResetItemSOQuantity(); // FOR TESTING PURPOSES!!!
     }
 
     private void Start()
@@ -150,6 +150,11 @@ public class InventoryManager : MonoBehaviour
 
     private void UseItem(Item item)
     {
+        if(item.Type == Item.ItemType.Coin)
+        {
+            return;
+        }
+
         if(item == null)
         {
             Debug.LogError("Item is null");
