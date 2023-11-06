@@ -31,11 +31,5 @@ public class QuestManager : MonoBehaviour
 
         if(OnQuestActivated != null)
             OnQuestActivated?.Invoke(this, new OnQuestActivatedEventArgs { quest = questToAdd });   
-
-        Debug.Log("All Quests");
-        foreach (var item in ActiveQuests)
-        {
-            Debug.Log(item);
-        }
     }
 }

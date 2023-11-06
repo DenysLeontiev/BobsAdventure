@@ -9,7 +9,7 @@ public class CombatTargets : MonoBehaviour
 
     public event Action<IEnemy> OnEnemyDied;
 
-    [SerializeField] private List<IEnemy> enemiesList;
+    [SerializeField] private List<WaveSystemSO> enemyWaves;
 
     private void Awake()
     {
@@ -18,9 +18,12 @@ public class CombatTargets : MonoBehaviour
 
     private void Start()
     {
-        foreach (var enemy in enemiesList)
+        foreach (var waveSO in enemyWaves)
         {
-            enemy.OnEnemyDied += Enemy_OnEnemyDied;
+            foreach (var enemy in waveSO.enemyWave)
+            {
+                enemy.OnEnemyDied += Enemy_OnEnemyDied;
+            }
         }
     }
 
